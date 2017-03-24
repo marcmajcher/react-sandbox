@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hello World</title>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
@@ -53,15 +54,38 @@
     }
 
     class Header extends React.Component {
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          searchVisible: false
+        }
+      }
+
+      showSearch() {
+        this.setState({
+          searchVisible: !this.state.searchVisible
+        })
+      }
+
       render() {
+        let searchInputClasses = ["searchInput"];
+
+        if (this.state.searchVisible) {
+          searchInputClasses.push("active");
+        }
+
         return (
           <div className="header">
             <div className="fa fa-more"></div>
             <span className="title">
             {this.props.title}
             </span>
-            <input type="text" className="searchInput" placeholder="Search..." />
-            <div className="fa fa-search searchIcon"></div>
+            <input type="text" className={searchInputClasses.join(' ')}
+            placeholder="Search..." />
+            <div
+            onClick={this.showSearch.bind(this)}
+            className="fa fa-search searchIcon"></div>
           </div>
         )
       }
